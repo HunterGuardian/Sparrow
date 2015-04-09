@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:textSize="20sp"
+        android:id="@+id/tapez"
+        android:textColor="#000000"
+        android:hint="Tapes"/>
+
+    <TextView
+        android:id="@+id/songs"
+        android:layout_width="wrap_content"
+        android:paddingBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tapez"
+        android:textColor="@color/material_lightblue"
+        android:textSize="16sp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/more_button"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/ic_more_vert_black_24dp"
+        android:layout_alignBaseline="@+id/tapez"
+        android:layout_alignParentRight="true"/>
+
+</RelativeLayout>
