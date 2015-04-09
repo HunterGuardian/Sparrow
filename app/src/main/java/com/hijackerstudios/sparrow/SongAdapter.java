@@ -6,21 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 /**
- * Created by cody on 15/12/14.
+ * Created by cody on 29/03/15.
  */
 public class SongAdapter extends BaseAdapter {
 
     //song list and layout
-    private ArrayList<Song> songs;
+    private ArrayList<Songz> songs;
     private LayoutInflater songInf;
 
     //constructor
-    public SongAdapter(Context c, ArrayList<Song> theSongs){
+    public SongAdapter(Context c, ArrayList<Songz> theSongs){
         songs=theSongs;
         songInf=LayoutInflater.from(c);
     }
@@ -43,18 +44,19 @@ public class SongAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         //map to song layout
-        LinearLayout songLay = (LinearLayout)songInf.inflate
-                (R.layout.tape_listitem, parent, false);
+        RelativeLayout songLay = (RelativeLayout)songInf.inflate
+                (R.layout.rowlayout, parent, false);
         //get title and artist views
-        TextView songView = (TextView)songLay.findViewById(R.id.song_title);
-        TextView artistView = (TextView)songLay.findViewById(R.id.song_artist);
+        TextView songView = (TextView)songLay.findViewById(R.id.songz);
+        TextView artistView = (TextView)songLay.findViewById(R.id.artist_name);
         //get song using position
-        Song currSong = songs.get(position);
+        Songz currSong = songs.get(position);
         //get title and artist strings
-        songView.setText(currSong.getTitle());
-        artistView.setText(currSong.getArtist());
+        songView.setText(currSong.gettitle());
+        artistView.setText(currSong.getartist());
         //set position as tag
         songLay.setTag(position);
         return songLay;
     }
+
 }

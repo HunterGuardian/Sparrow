@@ -4,11 +4,22 @@
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
 
-        <item name="colorPrimary">@color/material_red</item>
-        <item name="colorPrimaryDark">@color/material_darkred</item>
+        <item name="colorPrimary">@color/material_purple</item>
+        <item name="colorPrimaryDark">@color/material_purple</item>
         <item name="colorAccent">@color/material_lightblue</item>
 
+    </style>
+    
+    <style name="BottomSheet.StyleDialog." parent="BottomSheet.Dialog">
 
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowAnimationStyle">@style/BottomSheet.Animation</item>
+        <item name="android:textColorPrimary">#000000</item>
+        <item name="android:textColorSecondary">#9C27B0</item>
+        <item name="android:textColorHint">#42ffffff</item>
+        <item name="bs_dialogBackground">#fafafa</item>
+        <item name="bs_dividerColor">@color/abc_search_url_text_pressed</item>
+        <item name="bs_numColumns">4</item>
     </style>
 
 </resources>

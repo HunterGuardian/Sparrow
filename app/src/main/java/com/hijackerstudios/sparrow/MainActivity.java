@@ -1,24 +1,31 @@
 package com.hijackerstudios.sparrow;
 
+import android.content.Intent;
+import android.media.MediaMetadataRetriever;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
-import java.util.Locale;
-
-import it.neokree.materialtabs.MaterialTab;
-import it.neokree.materialtabs.MaterialTabHost;
-import it.neokree.materialtabs.MaterialTabListener;
+import com.astuetz.PagerSlidingTabStrip;
 
 
-public class MainActivity extends ActionBarActivity implements MaterialTabListener {
+public class MainActivity extends ActionBarActivity {
+
+    public MediaStoreHandler mediaStoreHandler = MediaStoreHandler.getInstance(this);
+    public MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
+
+    public int playlistID;
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -28,7 +35,7 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    MaterialTabHost tabHost;
+    PagerSlidingTabStrip tabHost;
     ViewPager pager;
     ViewPagerAdapter adapter;
 
@@ -41,52 +48,47 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FrameLayout smallPly = (FrameLayout) this.findViewById(R.id.littlePlayer);
+
+//        playlistID = getIntent().getExtras().getInt("playlistID");
+
         Toolbar toolbar = (android.support.v7.widget.Toolbar) this.findViewById(R.id.toolbar);
         this.setSupportActionBar(toolbar);
 
-        tabHost = (MaterialTabHost) this.findViewById(R.id.tabHost);
-        pager = (ViewPager) this.findViewById(R.id.pager );
+        tabHost = (PagerSlidingTabStrip) this.findViewById(R.id.tabHost);
+        pager = (ViewPager) this.findViewById(R.id.pager);
 
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapter);
-        pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // when user do a swipe the selected tab change
-                tabHost.setSelectedNavigationItem(position);
+        tabHost.setViewPager(pager);
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
+                .getDisplayMetrics());
+        pager.setPageMargin(pageMargin);
+    }
 
-            }
-        });
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        // insert all tabs from pagerAdapter data
-        for (int i = 0; i < adapter.getCount(); i++) {
-            tabHost.addTab(
-                    tabHost.newTab()
-                            .setText(adapter.getPageTitle(i))
-                            .setTabListener(this)
-            );
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        SmallPlayerFrag asf = new SmallPlayerFrag();
+        fragmentTransaction.add(R.id.littlePlayer, asf);
+        fragmentTransaction.commit();
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 101){
+            Intent in = new Intent(getApplicationContext(), PlayerActivity.class);
+            in.putExtras(data);
+            startActivityForResult(in,100);
+            finish();
         }
-
-
     }
-
-    @Override
-    public void onTabSelected(MaterialTab tab) {
-        pager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabReselected(MaterialTab tab) {
-
-    }
-
-    @Override
-    public void onTabUnselected(MaterialTab tab) {
-
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -112,6 +114,8 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
+        private final String[] TITLES = {"Tapes", "Library", "Artist", "Albums", "Social feed"};
+
         public ViewPagerAdapter(FragmentManager fm) {
             super(fm);
 
@@ -126,33 +130,25 @@ public class MainActivity extends ActionBarActivity implements MaterialTabListen
                     return new TapeList();
                 case 1:
                     return new SongList();
+                case 2:
+                    return new ArtistList();
                 default:
-                    return new TapeList();
+                    return new AlbumList();
             }
 
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return TITLES.length;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
-            }
-            return null;
+            return TITLES[position];
         }
 
     }
-
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

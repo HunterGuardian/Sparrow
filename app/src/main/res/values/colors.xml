@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="material_red">#F44336</color>
+    <color name="material_purple">#673AB7</color>
     <color name="material_indigo">#3F51B5</color>
     <color name="material_grey">#9E9E9E</color>
     <color name="material_lightblue">#03A9F4</color>
     <color name="material_darkred">#D50000</color>
+
+    <item name="blue" type="color">#2196F3</item>
+    <item name="purple" type="color">#9C27B0</item>
+    <item name="green" type="color">#4CAF50</item>
+    <item name="orange" type="color">#FF9800</item>
+    <item name="red" type="color">#F44336</item>
+    <item name="darkblue" type="color">#0D47A1</item>
+    <item name="darkpurple" type="color">#311B92</item>
+    <item name="darkgreen" type="color">#1B5E20</item>
+    <item name="darkorange" type="color">#FF5722</item>
+    <item name="darkred" type="color">#D50000</item>
+
+    <integer-array name="androidcolors">
+        <item>@color/blue</item>
+        <item>@color/purple</item>
+        <item>@color/green</item>
+        <item>@color/orange</item>
+        <item>@color/red</item>
+        <item>@color/darkblue</item>
+        <item>@color/darkpurple</item>
+        <item>@color/darkgreen</item>
+        <item>@color/darkorange</item>
+        <item>@color/darkred</item>
+    </integer-array>
 </resources>

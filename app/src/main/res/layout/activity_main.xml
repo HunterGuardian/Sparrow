@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="#FAFAFA"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
 <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar"
@@ -14,19 +14,27 @@
     android:background="?attr/colorPrimary"
     app:theme="@style/ThemeOverlay.AppCompat.ActionBar"/>
 
-    <it.neokree.materialtabs.MaterialTabHost
+    <com.astuetz.PagerSlidingTabStrip
         android:id="@+id/tabHost"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/toolbar"
-        app:primaryColor="?attr/colorPrimary"
-        app:accentColor="?attr/colorAccent" />
+        android:background="?attr/colorPrimary"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/tabHost" />
+        android:layout_below="@+id/tabHost"
+        android:layout_above="@+id/littlePlayer"/>
+
+
+    <FrameLayout
+        android:id="@+id/littlePlayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        </FrameLayout>
 
     </RelativeLayout>
 

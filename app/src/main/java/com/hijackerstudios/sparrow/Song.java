@@ -4,19 +4,42 @@ package com.hijackerstudios.sparrow;
  * Created by cody on 15/12/14.
  */
 public class Song {
+    int id = 0;
+    String name = null;
+    boolean selected = false;
 
-    private long id;
-    private String title;
-    private String artist;
-
-    public Song(long songID, String songTitle, String songArtist){
-        id=songID;
-        title=songTitle;
-        artist=songArtist;
+    public Song(int code, String name, boolean selected) {
+        super();
+        this.id = code;
+        this.name = name;
+        this.selected = selected;
+    }
+    public Song(String name, boolean selected) {
+        super();
+        this.name = name;
+        this.selected = selected;
+    }
+    public int getID() {
+        return id;
     }
 
-    public long getID(){return id;}
-    public String getTitle(){return title;}
-    public String getArtist(){return artist;}
+    public void setID(int code) {
+        this.id = code;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }
